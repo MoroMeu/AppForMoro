@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Messenger</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <link rel="stylesheet" type="text/css" media="all" href="../../css/style.css" th:href="@{/css/style.css}"/>
+    </head>
+    <body>
+        <form class="msg" action="#" th:object="${message}" th:action="@{/msgform}" method="post">
+            <h1>Napište nám:</h1>
+            <label th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Empty_Email</label>
+            <input type="email" th:field="*{email}" placeholder="Váš@mail.com" required="required"/>
+            <label th:if="${#fields.hasErrors('text')}" th:errors="*{text}">Empty_Message</label>
+            <textarea type="text" th:field="*{text}" placeholder="Vaše zpráva." required="required" ></textarea>
+            <input id="submit" type="submit" value="Odeslat"/>
+        </form>    
+
+        <Label>Odeslané zprávy:</Label>
+        <table>
+            <tr th:each="msg : ${messages}">
+                <td th:text="${msg.date}"></td>
+                <td th:text="${msg.email}">1</td>
+                <td th:text="${msg.text}">Text</td>
+            </tr>
+        </table>
+        <Label>Odpovědi od serveru:</Label>
+        <table>
+            <tr th:each="rsp : ${responses}">
+                <td th:text="${rsp.date}"></td>
+                <td th:text="${rsp.email}">1</td>
+                <td th:text="${rsp.text}">Text</td>
+            </tr>
+        </table>
+
+    </body>
+</html>
